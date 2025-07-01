@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Círculo Interior - {{ nome_completo }}</title>
+  <style>
+    @page { size: A4; margin: 0; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      color: #fff;
+      background-color: #3d0075;
+      background-image: url("{{ imagem_textura }}");
+      background-repeat: repeat;
+      background-size: auto;
+    }
+    .capa {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2cm;
+    }
+    .capa h1 {
+      font-size: 64px;
+      margin: 0;
+      text-shadow: 2px 2px 4px #000;
+      color: gold;
+    }
+    .capa h2 {
+      font-size: 28px;
+      margin: 10px 0 40px;
+      line-height: 1.2;
+      color: silver;
+      text-shadow: 1px 1px 2px #000;
+    }
+    .capa .autor {
+      font-size: 16px;
+      line-height: 1.4;
+      color: #ccc;
+    }
+    .apresentacao {
+      padding: 2cm;
+      background-color: #f9f7f2;
+      color: #333;
+      page-break-before: always;
+    }
+    .apresentacao h3 {
+      color: #3d0075;
+      margin-bottom: 0.5em;
+    }
+    .apresentacao p,
+    .apresentacao ul {
+      margin-bottom: 1em;
+      line-height: 1.6;
+    }
+    .apresentacao ul li {
+      margin-left: 1em;
+    }
+    .rodape {
+      margin-top: 2em;
+      font-size: 12px;
+      color: #777;
+      text-align: center;
+    }
+    a { color: #3d0075; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <!-- CAPA -->
+  <div class="capa">
+    <h1>Círculo Interior</h1>
+    <h2>Uma jornada de autoconhecimento<br>personalizada para {{ nome_completo }}</h2>
+    <div class="autor">
+      Criado por Alexandro Campos<br>
+      7caballa
+    </div>
+  </div>
+
+  <!-- APRESENTAÇÃO GERAL -->
+  <div class="apresentacao">
+    <p>Bem-{{ pronome_bemvindo }}, {{ nome_completo }}.</p>
+    <p>Este é o seu <strong>Círculo Interior</strong> — uma jornada de autoconhecimento construída especialmente para você, {{ primeiro_nome }}. Cada elemento deste mapa revela facetas importantes da sua essência, suas forças, desafios, caminhos e potenciais ocultos.</p>
+    <p>Não se trata de previsões absolutas, mas de espelhos simbólicos para reflexão. O objetivo é te ajudar a enxergar padrões, validar sentimentos e, principalmente, reconectar você com o seu próprio eixo.</p>
+    <h3>Índice</h3>
+    <ul>
+      <li>☀️ Signo Solar</li>
+      <li>🌙 Signo Lunar</li>
+      <li>↗️ Ascendente</li>
+      <li>🔢 Caminho de Vida</li>
+      <li>🎴 Arcano Regente</li>
+      <li>🌳 Signo Celta</li>
+      <li>🐉 Signo Chinês</li>
+    </ul>
+    <h3>Como usar</h3>
+    <ul>
+      <li>Leia um tópico por vez e anote seus insights.</li>
+      <li>Retorne sempre que precisar de clareza ou reconexão.</li>
+      <li>Utilize um caderno ou diário para registrar reflexões.</li>
+    </ul>
+    <p>Gratidão por permitir que essa leitura chegue até você, {{ primeiro_nome }}. Que ela seja um guia amoroso e profundo nesta etapa do seu caminho.</p>
+    <div class="rodape">
+      🔮 Criado por Alex, seu consultor de tarot<br>
+      🌐 <a href="https://7caballa.com.br">7caballa.com.br</a> | 💬 <a href="https://wa.me/5511999999999">WhatsApp</a>
+    </div>
+  </div>
+</body>
+</html>

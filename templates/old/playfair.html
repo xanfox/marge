@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Círculo Interior - {{nome}}</title>
+  <!-- Fontes Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #5D2E8C;
+      --secondary-color: #F3E8FF;
+      --text-color: #333;
+      --bg-color: #FAFAFA;
+      --accent-color: #D6B3FF;
+      --section-bg: #FFFFFF;
+      --card-radius: 12px;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary-color);
+      margin: 0;
+    }
+    h1 {
+      font-size: 2.8rem;
+    }
+    h2 {
+      font-size: 1.6rem;
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .header {
+      text-align: center;
+      padding: 30px 20px;
+      background: var(--section-bg);
+      border-radius: var(--card-radius);
+      box-shadow: 0 4px 8px var(--card-shadow);
+      margin-bottom: 40px;
+    }
+    .header p {
+      margin: 8px 0;
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--section-bg);
+      border-radius: var(--card-radius);
+      box-shadow: 0 4px 12px var(--card-shadow);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card img {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 80px;
+      opacity: 0.2;
+    }
+    .card-content {
+      position: relative;
+    }
+    .card-content p {
+      margin: 12px 0;
+      line-height: 1.5;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Círculo Interior</h1>
+    <p>Uma jornada de autoconhecimento para <strong>{{nome}}</strong></p>
+    <p><em>{{data_nascimento}} às {{hora_nascimento}} — {{local_nascimento}}</em></p>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <img src="img/signos/{{signo_solar | lower}}.png" alt="{{signo_solar}}" />
+      <div class="card-content">
+        <h2>☀️ Signo Solar: {{signo_solar}}</h2>
+        <p><strong>Planeta regente:</strong> {{planeta_solar}}</p>
+        <p><strong>Força:</strong> {{forca_solar}}</p>
+        <p><strong>Fraqueza:</strong> {{fraqueza_solar}}</p>
+        <p>{{descricao_solar}}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h2>🌙 Signo Lunar: {{signo_lunar}}</h2>
+        <p>{{descricao_lunar}}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h2>↗️ Ascendente: {{ascendente}}</h2>
+        <p>{{descricao_ascendente}}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h2>🔮 Carta de Nascimento: {{arcano_tarot}}</h2>
+        <p><strong>Mote:</strong> "{{mote_tarot}}"</p>
+        <p><strong>Estilo:</strong> {{estilo_tarot}}</p>
+        <p><strong>Desafios:</strong> {{fraquezas_tarot}}</p>
+        <p>{{descricao_tarot}}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h2>🌳 Horóscopo Celta: {{signo_celta}}</h2>
+        <p><strong>Elemento:</strong> {{elemento_celta}}</p>
+        <p><strong>Animal:</strong> {{animal_celta}}</p>
+        <p><strong>Cor:</strong> {{cor_celta}}</p>
+        <p><strong>Flor:</strong> {{flor_celta}}</p>
+        <p>{{descricao_celta}}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h2>🐉 Horóscopo Chinês</h2>
+        <p><strong>Animal:</strong> {{signo_chines}}</p>
+        <p><strong>Elemento:</strong> {{elemento_chines}}</p>
+        <p><strong>Mantra:</strong> "{{mantra_chines}}"</p>
+        <p>{{descricao_chines}}</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h2>🔢 Número do Caminho: {{numero_caminho}}</h2>
+        <p><strong>Forças:</strong> {{forcas_numerologia}}</p>
+        <p><strong>Desafios:</strong> {{desafios_numerologia}}</p>
+        <p>{{descricao_numerologia}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Este material foi criado especialmente para você por Alex – Seu Consultor de Tarot</p>
+    <p>© 2025 – Todos os direitos reservados.</p>
+  </div>
+</body>
+</html>
+

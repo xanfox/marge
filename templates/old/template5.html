@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Círculo Interior - {{nome}}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    @page { size: A4; margin: 20mm; }
+    body { margin:0; padding:0; font-family:'Roboto',sans-serif; color:#2C2C2C; background:#FFF; line-height:1.5; }
+    .header { text-align:center; padding:30px; background:#4A2378; color:#FFF; break-after: page; }
+    .header h1 { font-family:'Playfair Display', serif; font-size:36px; margin-bottom:8px; }
+    .header p { margin:4px 0; font-weight:300; font-size:14px; }
+    .section { page-break-inside:avoid; margin-bottom:20px; padding:15px; border-radius:8px; background:#EFEAFB; }
+    .section.alt { background:#FFF; }
+    .section .title { display:block; font-family:'Playfair Display',serif; font-size:24px; color:#4A2378; margin-bottom:6px; }
+    .section .title img { vertical-align:middle; width:28px; height:28px; margin-right:8px; opacity:0.8; }
+    .section .content p { margin:6px 0; }
+    .divider { width:50px; height:3px; background:#A47DD5; margin:8px 0; border-radius:2px; }
+    .footer { text-align:center; font-size:12px; color:#666; margin-top:30px; break-before: page; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Círculo Interior</h1>
+    <p>Jornada de Autoconhecimento para <strong>{{nome}}</strong></p>
+    <p><em>{{data_nascimento}} • {{hora_nascimento}} • {{local_nascimento}}</em></p>
+  </div>
+
+  {% set sections = [
+    {
+      'icon':'img/signos/' ~ signo_solar|lower ~ '.svg',
+      'title':'☀️ Signo Solar',
+      'lines':[
+        '<strong>' ~ signo_solar ~ '</strong>',
+        'Planeta regente: ' ~ planeta_solar,
+        'Força: ' ~ forca_solar,
+        'Fraqueza: ' ~ fraqueza_solar,
+        descricao_solar
+      ]
+    },
+    {
+      'icon':'img/lua.svg',
+      'title':'🌙 Signo Lunar',
+      'lines':[
+        '<strong>' ~ signo_lunar ~ '</strong>',
+        descricao_lunar
+      ]
+    },
+    {
+      'icon':'img/ascendente.svg',
+      'title':'↗️ Ascendente',
+      'lines':[
+        '<strong>' ~ ascendente ~ '</strong>',
+        descricao_ascendente
+      ]
+    },
+    {
+      'icon':'img/tarot/' ~ arcano_tarot|lower ~ '.svg',
+      'title':'🔮 Carta de Nascimento',
+      'lines':[
+        '<strong>' ~ arcano_tarot ~ '</strong> — "' ~ mote_tarot ~ '"',
+        'Estilo: ' ~ estilo_tarot,
+        'Desafios: ' ~ fraquezas_tarot,
+        descricao_tarot
+      ]
+    },
+    {
+      'icon':'img/celta.svg',
+      'title':'🌳 Horóscopo Celta',
+      'lines':[
+        '<strong>' ~ signo_celta ~ '</strong>',
+        'Elemento: ' ~ elemento_celta,
+        'Animal: ' ~ animal_celta,
+        'Cor: ' ~ cor_celta,
+        'Flor: ' ~ flor_celta,
+        descricao_celta
+      ]
+    },
+    {
+      'icon':'img/chines.svg',
+      'title':'🐉 Horóscopo Chinês',
+      'lines':[
+        '<strong>' ~ signo_chines ~ '</strong>',
+        'Elemento: ' ~ elemento_chines,
+        'Mantra: ' ~ '"' ~ mantra_chines ~ '"',
+        descricao_chines
+      ]
+    },
+    {
+      'icon':'img/numerologia.svg',
+      'title':'🔢 Número do Caminho',
+      'lines':[
+        '<strong>' ~ numero_caminho ~ '</strong>',
+        'Forças: ' ~ forcas_numerologia,
+        'Desafios: ' ~ desafios_numerologia,
+        descricao_numerologia
+      ]
+    }
+  ] %}
+
+  {% for sec in sections %}
+    <div class="section {% if loop.index is even %}alt{% endif %}">
+      <span class="title"><img src="{{ sec.icon }}" alt="">{{ sec.title }}</span>
+      <div class="divider"></div>
+      <div class="content">
+        {% for line in sec.lines %}
+          <p>{{ line|safe }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="footer">
+    Criado por Alex – Seu Consultor de Tarot © 2025
+  </div>
+</body>
+</html>
+

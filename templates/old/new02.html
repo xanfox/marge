@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Círculo Interior - {{ nome }}</title>
+  <style>
+    /* ---------- Página e Paginador ---------- */
+    @page {
+      size: A4;
+      margin: 15mm;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Georgia", serif;
+      color: #333;
+    }
+    .page-number {
+      position: fixed;
+      bottom: 10mm;
+      right: 15mm;
+      font-size: 10px;
+      color: #666;
+    }
+
+    /* ---------- Semântica ---------- */
+    header, nav, main, section, footer { display: block; }
+    nav ul { list-style: none; padding: 0; margin: 0; }
+
+    /* ---------- Capa ---------- */
+    header.capa {
+      height: 100%;
+      page-break-after: always;
+      background-color: #3d0075;
+      background-image: url("{{ imagem_textura }}");
+      background-repeat: repeat;
+      background-size: cover;
+      display: flex;
+      align-items: flex-end;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+    header.capa .texto {
+      margin-left: auto;
+      text-align: right;
+      color: gold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      max-width: 60%;
+    }
+    header.capa .texto h1 { font-size: 48px; margin: 0; }
+    header.capa .texto h2 { font-size: 20px; margin: 5px 0; }
+    header.capa .texto p { font-size: 14px; margin: 5px 0; }
+    header.capa .autor { margin-top: 20px; font-size: 12px; color: #eee; }
+
+    /* ---------- Índice Dinâmico ---------- */
+    nav.indice {
+      page-break-before: always;
+      padding: 60px 40px;
+    }
+    nav.indice h2 { text-align: center; color: #520058; margin-bottom: 20px; }
+    nav.indice li { margin: 8px 0; font-size: 16px; display: flex; justify-content: space-between; }
+    nav.indice li span.title { flex: 1; }
+    nav.indice li span.page { width: 30px; text-align: right; }
+
+    /* ---------- Conteúdo ---------- */
+    main { padding: 0; }
+    section {
+      page-break-before: always;
+      padding: 40px;
+    }
+    section > h2 {
+      font-size: 22px;
+      color: #520058;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      flex: 1 1 calc(50% - 20px);
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+    .card.full { flex: 1 1 100%; }
+    .card img { max-width: 120px; float: right; margin-left: 20px; }
+    .clear { clear: both; }
+    .fallback { font-style: italic; color: #777; }
+
+    /* ---------- Rodapé Geral ---------- */
+    footer {
+      text-align: center;
+      font-size: 10px;
+      color: #777;
+      padding: 20px 0;
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CAPA -->
+  <header class="capa">
+    <div class="texto">
+      <h1>Círculo Interior</h1>
+      <h2>Uma jornada de autoconhecimento para</h2>
+      <h1><strong>{{ nome }}</strong></h1>
+      <p><em>Nascido em {{ data_nascimento }} às {{ hora_nascimento }} — {{ local_nascimento }}</em></p>
+      <div class="autor">
+        Concebido com ❤️ por Alexandro Campos<br>
+        7caballa
+      </div>
+    </div>
+    <div class="page-number">1/{{ pages }}</div>
+  </header>
+
+  <!-- ÍNDICE -->
+  <nav class="indice">
+    <h2>ÍNDICE</h2>
+    <ul>
+      {%- set pageIndex = 2 %}
+      {%- set secList = [
+        'Apresentação Geral', 'Signo Solar', 'Signo Lunar', 'Ascendente',
+        'Carta de Nascimento (Tarot)', 'Horóscopo Celta', 'Horóscopo Chinês',
+        'Caminho de Vida', 'Mapa Astral Completo'
+      ] -%}
+      {%- for title in secList -%}
+        <li>
+          <span class="title">{{ loop.index }}. {{ title }}</span>
+          <span class="page">{{ pageIndex }}</span>
+        </li>
+        {%- set pageIndex = pageIndex + 1 -%}
+      {%- endfor %}
+    </ul>
+    <div class="page-number">{{ pageIndex - 1 }}/{{ pages }}</div>
+  </nav>
+
+  <!-- CONTEÚDO -->
+  <main>
+    <!-- 1. Apresentação Geral -->
+    <section id="apresentacao">
+      <h2>1. Apresentação Geral</h2>
+      <div>{{ apresentacao_geral | safe }}</div>
+    </section>
+
+    <!-- 2. Signo Solar -->
+    <section id="solar">
+      <h2>2. ☀️ Signo Solar: {{ signo_solar }}</h2>
+      <div class="flex-row">
+        <div class="card">
+          <strong>Planeta Regente:</strong><br>{{ planeta_solar }}
+        </div>
+        <div class="card">
+          <strong>Força:</strong><br>{{ forca_solar }}
+        </div>
+        <div class="card">
+          <strong>Fraqueza:</strong><br>{{ fraqueza_solar }}
+        </div>
+        <div class="card full">
+          {{ descricao_solar }}
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Signo Lunar -->
+    <section id="lunar">
+      <h2>3. 🌙 Signo Lunar: {{ signo_lunar }}</h2>
+      <div class="card full">
+        {{ descricao_lunar }}
+      </div>
+    </section>
+
+    <!-- 4. Ascendente -->
+    <section id="ascendente">
+      <h2>4. ↗️ Ascendente: {{ ascendente }}</h2>
+      <div class="card full">
+        {{ descricao_ascendente }}
+      </div>
+    </section>
+
+    <!-- 5. Carta de Nascimento (Tarot) -->
+    <section id="tarot">
+      <h2>5. 🔮 Carta de Nascimento (Tarot): {{ arcano_tarot }}</h2>
+      <div class="card full">
+        <strong>Mote:</strong> "{{ mote_tarot }}"<br>
+        <strong>Estilo:</strong> {{ estilo_tarot }}<br>
+        <strong>Desafios:</strong> {{ fraquezas_tarot }}
+      </div>
+      <div class="card full">
+        {{ descricao_tarot }}
+      </div>
+    </section>
+
+    <!-- 6. Horóscopo Celta -->
+    <section id="celta">
+      <h2>6. 🌳 Horóscopo Celta: {{ signo_celta }}</h2>
+      <div class="flex-row">
+        {% for label, val in {
+          'Elemento': elemento_celta,
+          'Animal': animal_celta,
+          'Cor': cor_celta,
+          'Flor': flor_celta,
+          'Celestial': celestial_celta
+        }.items() %}
+          <div class="card">
+            <strong>{{ label }}:</strong><br>{{ val }}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="card full">
+        {{ descricao_celta }}
+      </div>
+    </section>
+
+    <!-- 7. Horóscopo Chinês -->
+    <section id="chines">
+      <h2>7. 🐉 Horóscopo Chinês</h2>
+      <div class="flex-row">
+        <div class="card">
+          <strong>Animal:</strong><br>{{ signo_chines }}
+        </div>
+        <div class="card">
+          <strong>Elemento:</strong><br>{{ elemento_chines }}
+        </div>
+        <div class="card">
+          <strong>Mantra:</strong><br>"{{ mantra_chines }}"
+        </div>
+      </div>
+      <div class="card full">
+        {{ descricao_chines }}
+      </div>
+    </section>
+
+    <!-- 8. Caminho de Vida -->
+    <section id="vida">
+      <h2>8. 🔢 Caminho de Vida: {{ numero_caminho }}</h2>
+      <div class="flex-row">
+        <div class="card">
+          <strong>Forças:</strong><br>{{ forcas_numerologia }}
+        </div>
+        <div class="card">
+          <strong>Desafios:</strong><br>{{ desafios_numerologia }}
+        </div>
+      </div>
+      <div class="card full">
+        {{ descricao_numerologia }}
+      </div>
+    </section>
+
+   
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer>
+    Concebido com ❤️ por Alexandro Campos | 7caballa<br>
+    © 2025 – Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>

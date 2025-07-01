@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Círculo Interior - {{ nome }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg-dark: #1e0f3f;
+      --bg-card: #2b1b60;
+      --bg-inner: #382a78;
+      --accent: #c97fff;
+      --text-light: #f0eaff;
+      --text-medium: #d3c5ff;
+      --text-dark: #e1d8ff;
+    }
+    @page { size: A4; margin: 0; }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+    .container {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: 2.8rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .intro {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .intro p { margin: 8px 0; color: var(--text-medium); }
+    .section {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .inner-card {
+      background: var(--bg-inner);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+    .inner-flex {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .inner-flex .item {
+      background: var(--bg-card);
+      flex: 1;
+      min-width: 120px;
+      border-radius: 8px;
+      padding: 10px;
+      color: var(--text-medium);
+    }
+    .inner-flex .item strong { display: block; margin-bottom: 4px; color: var(--text-dark); }
+    .inner-desc {
+      margin-top: 12px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-medium);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Círculo Interior</h1>
+    <div class="intro">
+      <p>Uma jornada de autoconhecimento personalizada para <strong>{{ nome }}</strong></p>
+      <p>Nascido em {{ data_nascimento }} às {{ hora_nascimento }} — {{ local_nascimento }}</p>
+    </div>
+
+    <!-- Signo Solar -->
+    <div class="section">
+      <h2>☀️ Signo Solar: {{ signo_solar }}</h2>
+      <div class="inner-card">
+        <div class="inner-flex">
+          <div class="item"><strong>Planeta Regente</strong>{{ planeta_solar }}</div>
+          <div class="item"><strong>Força</strong>{{ forca_solar }}</div>
+          <div class="item"><strong>Fraqueza</strong>{{ fraqueza_solar }}</div>
+        </div>
+        <div class="inner-desc">{{ descricao_solar }}</div>
+      </div>
+    </div>
+
+    <!-- Signo Lunar -->
+    <div class="section">
+      <h2>🌙 Signo Lunar: {{ signo_lunar }}</h2>
+      <div class="inner-card">
+        <div class="inner-desc">{{ descricao_lunar }}</div>
+      </div>
+    </div>
+
+    <!-- Ascendente -->
+    <div class="section">
+      <h2>↗️ Ascendente: {{ ascendente }}</h2>
+      <div class="inner-card">
+        <div class="inner-desc">{{ descricao_ascendente }}</div>
+      </div>
+    </div>
+
+    <!-- Carta de Nascimento -->
+    <div class="section">
+      <h2>🔮 Carta de Nascimento (Tarot): {{ arcano_tarot }}</h2>
+      <div class="inner-card">
+        <div class="inner-flex">
+          <div class="item" style="flex:1 1 100%;"><strong>"{{ mote_tarot }}"</strong></div>
+          <div class="item"><strong>Estilo</strong>{{ estilo_tarot }}</div>
+          <div class="item"><strong>Desafios</strong>{{ fraquezas_tarot }}</div>
+        </div>
+        <div class="inner-desc">{{ descricao_tarot }}</div>
+      </div>
+    </div>
+
+    <!-- Horóscopo Celta -->
+    <div class="section">
+      <h2>🌳 Horóscopo Celta: {{ signo_celta }}</h2>
+      <div class="inner-card">
+        <div class="inner-flex">
+          <div class="item"><strong>Elemento</strong>{{ elemento_celta }}</div>
+          <div class="item"><strong>Animal</strong>{{ animal_celta }}</div>
+          <div class="item"><strong>Cor</strong>{{ cor_celta }}</div>
+          <div class="item"><strong>Flor</strong>{{ flor_celta }}</div>
+          <div class="item"><strong>Celestial</strong>{{ celestial_celta }}</div>
+        </div>
+        <div class="inner-desc">{{ descricao_celta }}</div>
+      </div>
+    </div>
+
+    <!-- Horóscopo Chinês -->
+    <div class="section">
+      <h2>🐉 Horóscopo Chinês</h2>
+      <div class="inner-card">
+        <div class="inner-flex">
+          <div class="item"><strong>Animal</strong>{{ signo_chines }}</div>
+          <div class="item"><strong>Elemento</strong>{{ elemento_chines }}</div>
+          <div class="item"><strong>Mantra</strong>"{{ mantra_chines }}"</div>
+        </div>
+        <div class="inner-desc">{{ descricao_chines }}</div>
+      </div>
+    </div>
+
+    <!-- Número do Caminho -->
+    <div class="section">
+      <h2>🔢 Número do Caminho de Vida: {{ numero_caminho }}</h2>
+      <div class="inner-card">
+        <div class="inner-flex">
+          <div class="item"><strong>Forças</strong>{{ forcas_numerologia }}</div>
+          <div class="item"><strong>Desafios</strong>{{ desafios_numerologia }}</div>
+        </div>
+        <div class="inner-desc">{{ descricao_numerologia }}</div>
+      </div>
+    </div>
+
+    <footer>
+      Este material foi criado especialmente para você por Alex – Seu Consultor de Tarot<br/>
+      © 2025 – Todos os direitos reservados.
+    </footer>
+  </div>
+</body>
+</html>

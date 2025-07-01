@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Círculo Interior - {{ nome }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ---------- Nova Paleta & Texturas ---------- */
+    :root {
+      --primary-dark: #2C0E4E;
+      --primary-light: #5A2888;
+      --accent-gold: #D4AF37;
+      --bg-cosmic: url('img/texturas/nebulosa.png');
+      --bg-opacity: 0.05;
+      --section-bg-even: rgba(90,40,136,0.08);
+      --section-bg-odd: rgba(44,14,78,0.08);
+    }
+    @page { size: A4; margin: 10mm; }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Roboto', sans-serif;
+      color: #222;
+      background: var(--bg-cosmic) center/cover no-repeat;
+    }
+    .wrapper {
+      max-width: 190mm;
+      margin: 0 auto;
+      padding: 0 8mm;
+      background: rgba(255,255,255,0.90);
+    }
+
+    /* ---------- Cabeçalho Místico ---------- */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 80px 20px;
+      margin-bottom: 50px;
+      background: linear-gradient(150deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+      color: #fff;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      width: 250px; height: 250px;
+      background: radial-gradient(circle at center, var(--accent-gold) var(--bg-opacity), transparent 70%);
+      top: -100px; left: -100px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 4rem;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    header p {
+      font-weight: 300;
+      font-size: 1.1rem;
+    }
+
+    /* ---------- Seções com Hierarquia ---------- */
+    section {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 24px;
+      border-radius: 16px;
+      page-break-inside: avoid;
+    }
+    section:nth-of-type(odd) { background: var(--section-bg-odd); }
+    section:nth-of-type(even) { background: var(--section-bg-even); }
+    section h2 {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+    section h2 img { width: 28px; height: 28px; margin-right: 12px; }
+    .info {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--primary-light);
+    }
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: var(--accent-gold);
+      border-radius: 2px;
+      margin: 8px 0 16px;
+    }
+    .desc {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    /* ---------- Rodapé Delicado ---------- */
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #555;
+      padding: 30px 0;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      break-before: page;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Círculo Interior</h1>
+      <p><em>Autoconhecimento para <strong>{{ nome }}</strong></em></p>
+      <p>{{ data_nascimento }} &nbsp;|&nbsp; {{ hora_nascimento }} &nbsp;|&nbsp; {{ local_nascimento }}</p>
+    </header>
+
+    {% set items = [
+      {
+        'icon': 'img/signos/' ~ signo_solar|lower ~ '.svg',
+        'title': '☀️ Signo Solar',
+        'info': '<strong>' ~ signo_solar ~ '</strong> • Planeta: ' ~ planeta_solar ~ ' • Força: ' ~ forca_solar ~ ' • Fraqueza: ' ~ fraqueza_solar,
+        'desc': descricao_solar
+      },
+      {
+        'icon': 'img/lua.svg',
+        'title': '🌙 Signo Lunar',
+        'info': '<strong>' ~ signo_lunar ~ '</strong>',
+        'desc': descricao_lunar
+      },
+      {
+        'icon': 'img/ascendente.svg',
+        'title': '↗️ Ascendente',
+        'info': '<strong>' ~ ascendente ~ '</strong>',
+        'desc': descricao_ascendente
+      },
+      {
+        'icon': 'img/tarot/' ~ arcano_tarot|lower ~ '.svg',
+        'title': '🔮 Carta de Nascimento',
+        'info': '<strong>' ~ arcano_tarot ~ '</strong> — "' ~ mote_tarot ~ '" • Estilo: ' ~ estilo_tarot ~ ' • Desafios: ' ~ fraquezas_tarot,
+        'desc': descricao_tarot
+      },
+      {
+        'icon': 'img/celta.svg',
+        'title': '🌳 Horóscopo Celta',
+        'info': '<strong>' ~ signo_celta ~ '</strong> • Elemento: ' ~ elemento_celta ~ ' • Animal: ' ~ animal_celta ~ ' • Cor: ' ~ cor_celta ~ ' • Flor: ' ~ flor_celta,
+        'desc': descricao_celta
+      },
+      {
+        'icon': 'img/chines.svg',
+        'title': '🐉 Horóscopo Chinês',
+        'info': '<strong>' ~ signo_chines ~ '</strong> • Elemento: ' ~ elemento_chines ~ ' • Mantra: "' ~ mantra_chines ~ '"',
+        'desc': descricao_chines
+      },
+      {
+        'icon': 'img/numerologia.svg',
+        'title': '🔢 Número do Caminho',
+        'info': '<strong>' ~ numero_caminho ~ '</strong> • Forças: ' ~ forcas_numerologia ~ ' • Desafios: ' ~ desafios_numerologia,
+        'desc': descricao_numerologia
+      }
+    ] %}
+
+    {% for it in items %}
+      <section>
+        <h2><img src="{{ it.icon }}" alt=""> {{ it.title }}</h2>
+        <div class="info">{{ it.info|safe }}</div>
+        <div class="divider"></div>
+        <div class="desc">{{ it.desc }}</div>
+      </section>
+    {% endfor %}
+
+    <footer>
+      Criado por Alex – Seu Consultor de Tarot © 2025
+    </footer>
+  </div>
+</body>
+</html>

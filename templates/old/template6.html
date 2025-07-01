@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Círculo Interior - {{nome}}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* Configuração de página */
+    @page { size: A4; margin: 20mm; }
+    body { margin:0; padding:0; font-family:'Roboto',sans-serif; color:#333; background:#fff; }
+    header { text-align:center; padding:40px 0; border-bottom:2px solid #ddd; }
+    header h1 { font-family:'Playfair Display',serif; font-size:32px; margin-bottom:8px; color:#4A2378; }
+    header p { margin:4px 0; font-weight:300; font-size:14px; }
+    .section { margin:30px 0; page-break-inside:avoid; }
+    .section h2 { font-family:'Playfair Display',serif; font-size:20px; color:#4A2378; margin-bottom:6px; display:flex; align-items:center; }
+    .section h2 img { width:24px; height:24px; margin-right:8px; }
+    .section .info { font-size:14px; font-weight:500; margin-bottom:8px; }
+    .section .desc { font-size:13px; line-height:1.5; }
+    hr { border:none; height:2px; background:#A47DD5; width:60px; margin:12px 0; }
+    footer { text-align:center; font-size:12px; color:#666; border-top:1px solid #ddd; padding:20px 0; margin-top:40px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Círculo Interior</h1>
+    <p>Jornada de Autoconhecimento para <strong>{{nome}}</strong></p>
+    <p><em>{{data_nascimento}} • {{hora_nascimento}} • {{local_nascimento}}</em></p>
+  </header>
+
+  <!-- Signo Solar -->
+  <div class="section">
+    <h2><img src="img/signos/{{signo_solar|lower}}.svg" alt="">☀️ Signo Solar</h2>
+    <div class="info">
+      <strong>{{signo_solar}}</strong> • Planeta regente: {{planeta_solar}} • Força: {{forca_solar}} • Fraqueza: {{fraqueza_solar}}
+    </div>
+    <hr/>
+    <div class="desc">{{descricao_solar}}</div>
+  </div>
+
+  <!-- Signo Lunar -->
+  <div class="section">
+    <h2><img src="img/lua.svg" alt="">🌙 Signo Lunar</h2>
+    <div class="info"><strong>{{signo_lunar}}</strong></div>
+    <hr/>
+    <div class="desc">{{descricao_lunar}}</div>
+  </div>
+
+  <!-- Ascendente -->
+  <div class="section">
+    <h2><img src="img/ascendente.svg" alt="">↗️ Ascendente</h2>
+    <div class="info"><strong>{{ascendente}}</strong></div>
+    <hr/>
+    <div class="desc">{{descricao_ascendente}}</div>
+  </div>
+
+  <!-- Carta de Nascimento -->
+  <div class="section">
+    <h2><img src="img/tarot/{{arcano_tarot|lower}}.svg" alt="">🔮 Carta de Nascimento</h2>
+    <div class="info">
+      <strong>{{arcano_tarot}}</strong> — "{{mote_tarot}}" • Estilo: {{estilo_tarot}} • Desafios: {{fraquezas_tarot}}
+    </div>
+    <hr/>
+    <div class="desc">{{descricao_tarot}}</div>
+  </div>
+
+  <!-- Horóscopo Celta -->
+  <div class="section">
+    <h2><img src="img/celta.svg" alt="">🌳 Horóscopo Celta</h2>
+    <div class="info">
+      <strong>{{signo_celta}}</strong> • Elemento: {{elemento_celta}} • Animal: {{animal_celta}} • Cor: {{cor_celta}} • Flor: {{flor_celta}}
+    </div>
+    <hr/>
+    <div class="desc">{{descricao_celta}}</div>
+  </div>
+
+  <!-- Horóscopo Chinês -->
+  <div class="section">
+    <h2><img src="img/chines.svg" alt="">🐉 Horóscopo Chinês</h2>
+    <div class="info">
+      <strong>{{signo_chines}}</strong> • Elemento: {{elemento_chines}} • Mantra: "{{mantra_chines}}"
+    </div>
+    <hr/>
+    <div class="desc">{{descricao_chines}}</div>
+  </div>
+
+  <!-- Número do Caminho -->
+  <div class="section">
+    <h2><img src="img/numerologia.svg" alt="">🔢 Número do Caminho</h2>
+    <div class="info">
+      <strong>{{numero_caminho}}</strong> • Forças: {{forcas_numerologia}} • Desafios: {{desafios_numerologia}}
+    </div>
+    <hr/>
+    <div class="desc">{{descricao_numerologia}}</div>
+  </div>
+
+  <footer>
+    Criado por Alex – Seu Consultor de Tarot © 2025
+  </footer>
+</body>
+</html>
+

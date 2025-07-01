@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Círculo Interior - {{nome}}</title>
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      margin: 40px;
+      color: #333;
+      background-color: #fdfdfd;
+    }
+
+    h1, h2, h3 {
+      color: #520058;
+    }
+
+    .header {
+      text-align: center;
+      padding-bottom: 30px;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .section {
+      margin: 30px 0;
+    }
+
+    .section img {
+      float: right;
+      max-width: 120px;
+      margin-left: 20px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #222;
+      border-bottom: 1px solid #eee;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 50px;
+      color: #777;
+    }
+
+    .clear { clear: both; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Círculo Interior</h1>
+    <p>Uma jornada de autoconhecimento personalizada para <strong>{{nome}}</strong></p>
+    <p><em>Nascido em {{data_nascimento}} às {{hora_nascimento}} — {{local_nascimento}}</em></p>
+  </div>
+
+
+    <div class="introducao">
+      {{ apresentacao_geral | safe }}
+    </div>
+    <br>
+
+  <div class="section">
+    <h2 class="section-title">☀️ Signo Solar: {{signo_solar}}</h2>
+    <img src="img/signos/{{signo_solar | lower}}.png" alt="{{signo_solar}}" />
+    <p><strong>Planeta regente:</strong> {{planeta_solar}}</p>
+    <p><strong>Força:</strong> {{forca_solar}}</p>
+    <p><strong>Fraqueza:</strong> {{fraqueza_solar}}</p>
+    <p>{{descricao_solar}}</p>
+    <div class="clear"></div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">🌙 Signo Lunar: {{signo_lunar}}</h2>
+    <p>{{descricao_lunar}}</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">↗️ Ascendente: {{ascendente}}</h2>
+    <p>{{descricao_ascendente}}</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">🔮 Carta de Nascimento (Tarot): {{arcano_tarot}}</h2>
+    <p><strong>Mote:</strong> "{{mote_tarot}}"</p>
+    <p><strong>Estilo:</strong> {{estilo_tarot}}</p>
+    <p><strong>Desafios:</strong> {{fraquezas_tarot}}</p>
+    <p>{{descricao_tarot}}</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">🌳 Horóscopo Celta: {{signo_celta}}</h2>
+    <p><strong>Elemento (Pedra):</strong> {{elemento_celta}}</p>
+    <p><strong>Animal:</strong> {{animal_celta}}</p>
+    <p><strong>Cor:</strong> {{cor_celta}}</p>
+    <p><strong>Flor:</strong> {{flor_celta}}</p>
+    <p><strong>Celestial:</strong> {{celestial_celta}}</p>
+    <p>{{descricao_celta}}</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">🐉 Horóscopo Chinês</h2>
+    <p><strong>Animal:</strong> {{signo_chines}}</p>
+    <p><strong>Elemento:</strong> {{elemento_chines}}</p>
+    <p><strong>Mantra:</strong> "{{mantra_chines}}"</p>
+    <p>{{descricao_chines}}</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">🔢 Número do Caminho de Vida: {{numero_caminho}}</h2>
+    <p><strong>Forças:</strong> {{forcas_numerologia}}</p>
+    <p><strong>Desafios:</strong> {{desafios_numerologia}}</p>
+    <p>{{descricao_numerologia}}</p>
+  </div>
+
+<!-- ... conteúdo anterior permanece inalterado ... -->
+<div class="section">
+  <h2 class="section-title">🌌 Mapa Astral Completo</h2>
+
+  <h3>↗️ Ascendente: {{ascendente}}</h3>
+  <p>{{descricao_ascendente}}</p>
+
+  <h3>🪜 Meio do Céu: {{meio_ceu}}</h3>
+
+  <h3>🪐 Planetas nos Signos e Casas</h3>
+  <ul>
+    {% for planeta in planetas %}
+      <li><strong>{{planeta.nome}}</strong> em <strong>{{planeta.signo}}</strong> ({{planeta.graus}}°), na casa {{planeta.casa}}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>🏠 Casas Astrológicas</h3>
+  <ul>
+    {% for casa in casas %}
+      <li><strong>Casa {{casa.numero}}:</strong> Início em <strong>{{casa.signo}}</strong> ({{casa.graus}}°)</li>
+    {% endfor %}
+  </ul>
+
+  <h3>⚖️ Aspectos Principais</h3>
+  {% if aspectos %}
+    <ul>
+      {% for asp in aspectos %}
+        <li><strong>{{asp.planeta1}}</strong> em <strong>{{asp.aspecto}}</strong> com <strong>{{asp.planeta2}}</strong> (orb: {{asp.orb}}°)</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Sem aspectos principais detectados entre os planetas.</p>
+  {% endif %}
+</div>
+
+
+<!-- ... footer permanece inalterado ... -->
+
+
+
+
+
+
+  <div class="footer">
+    <p>Este material foi criado especialmente para você por Alex – Seu Consultor de Tarot</p>
+    <p>© 2025 – Todos os direitos reservados.</p>
+  </div>
+
+</body>
+</html>

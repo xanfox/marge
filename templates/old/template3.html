@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Círculo Interior - {{nome}}</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4A2378;
+      --secondary: #EFEAFB;
+      --accent: #A47DD5;
+      --text: #2C2C2C;
+      --light: #FFFFFF;
+      --radius: 10px;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+      background: var(--light);
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: var(--light);
+      border-radius: var(--radius);
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    .header p {
+      font-weight: 300;
+      font-size: 1.1rem;
+    }
+    .section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 30px 20px;
+      margin-bottom: 25px;
+      border-radius: var(--radius);
+      background: var(--secondary);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .section:nth-child(even) {
+      background: var(--light);
+    }
+    .section .title {
+      display: flex;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .section .title img {
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+      opacity: 0.8;
+    }
+    .section .content p {
+      margin-bottom: 12px;
+    }
+    @media(min-width: 768px) {
+      .section { grid-template-columns: 150px auto; }
+    }
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Círculo Interior</h1>
+    <p>Jornada de Autoconhecimento para <strong>{{nome}}</strong></p>
+    <p><em>{{data_nascimento}} • {{hora_nascimento}} • {{local_nascimento}}</em></p>
+  </div>
+
+  <!-- Solar -->
+  <div class="section">
+    <div class="title">
+      <img src="img/signos/{{signo_solar | lower}}.svg" alt="{{signo_solar}}">
+      ☀️ Signo Solar
+    </div>
+    <div class="content">
+      <p><strong>{{signo_solar}}</strong></p>
+      <p>Regente: {{planeta_solar}} | Força: {{forca_solar}} | Fraqueza: {{fraqueza_solar}}</p>
+      <div class="divider"></div>
+      <p>{{descricao_solar}}</p>
+    </div>
+  </div>
+
+  <!-- Lunar -->
+  <div class="section">
+    <div class="title">
+      <img src="img/lua.svg" alt="Lua">
+      🌙 Signo Lunar
+    </div>
+    <div class="content">
+      <p><strong>{{signo_lunar}}</strong></p>
+      <div class="divider"></div>
+      <p>{{descricao_lunar}}</p>
+    </div>
+  </div>
+
+  <!-- Ascendente -->
+  <div class="section">
+    <div class="title">
+      <img src="img/ascendente.svg" alt="Ascendente">
+      ↗️ Ascendente
+    </div>
+    <div class="content">
+      <p><strong>{{ascendente}}</strong></p>
+      <div class="divider"></div>
+      <p>{{descricao_ascendente}}</p>
+    </div>
+  </div>
+
+  <!-- Carta Tarot -->
+  <div class="section">
+    <div class="title">
+      <img src="img/tarot/{{arcano_tarot | lower}}.svg" alt="Tarot">
+      🔮 Carta de Nascimento
+    </div>
+    <div class="content">
+      <p><strong>{{arcano_tarot}}</strong> — "{{mote_tarot}}"</p>
+      <p>Estilo: {{estilo_tarot}} | Desafios: {{fraquezas_tarot}}</p>
+      <div class="divider"></div>
+      <p>{{descricao_tarot}}</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    Criado por Alex – Seu Consultor de Tarot © 2025
+  </div>
+</body>
+</html>
+

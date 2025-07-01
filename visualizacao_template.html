@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Círculo Interior - João da Silva</title>
+  <style>
+    /* ---------- Página e Paginador Global WEASYPRINT ---------- */
+    @page {
+      size: A4;
+      margin: 0; /* Zera margens para a CAPA ocupar a página completa por padrão */
+
+      /* Paginador padrão para TODAS as páginas */
+      @bottom-right {
+        /* >>> AJUSTE 1: Aumentar o tamanho da fonte */
+        /* >>> AJUSTE 2: Formato "Página X de Y" */
+        content: "Página " counter(page) " de 12";
+        font-size: 16px; /* Aumentado de 10px para 11px, pode ajustar mais se necessário */
+        color: #666;
+        margin-right: 15mm;
+        margin-bottom: 10mm;
+      }
+    }
+
+    /* Regras específicas para a PRIMEIRA PÁGINA (CAPA) */
+    @page :first {
+      margin: 0; /* Garante que a capa não tenha margens e preencha tudo */
+      @bottom-right { content: none; } /* ESCONDE O PAGINADOR NA CAPA */
+      @top-left { content: none; }
+      @top-right { content: none; }
+      @bottom-left { content: none; }
+    }
+
+    /* Regras específicas para as páginas de CONTEÚDO (a partir da segunda página) */
+    /*
+       O `@page :nth(n+2)` está correto para aplicar margens a partir da 3ª página.
+       Se a sua página de índice é a 2ª, e você quer margens diferentes para ela,
+       poderíamos usar `@page :nth(2) { ... }` para o índice e `@page :nth(n+3) { ... }`
+       para o resto. Por enquanto, vou manter o `n+2` que aplicará essas margens
+       do índice em diante.
+    */
+    @page :nth(n+2) {
+      margin: 20mm 15mm 20mm 15mm; /* Margens padrão para o conteúdo */
+    }
+
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+      font-family: "Georgia", serif;
+      color: #333;
+    }
+
+    /* ---------- Semântica ---------- */
+    header, nav, main, section, footer { display: block; }
+    nav ul { list-style: none; padding: 0; margin: 0; }
+
+/* ---------- Capa ---------- */
+    header.capa {
+      height: 100%;
+      width: 100%;
+      page-break-after: always;
+      background-color: #3d0075;
+      background-image: url("file:///home/xan/Área de trabalho/Marge/assets/black-thread-light.png");
+      background-repeat: repeat;
+      background-size: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+    header.capa .texto {
+      text-align: right;
+      color: gold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      max-width: 65%;
+      padding: 0 40px 40px 0;
+      margin: 0;
+    }
+
+    /* >>> INÍCIO DOS AJUSTES COM LINE-HEIGHT <<< */
+    header.capa .texto h1 {
+        font-size: 60px;
+        margin: 0;
+        line-height: 0.9; /* AJUSTADO: reduz o espaçamento entre linhas quebradas */
+    }
+    header.capa .texto h2 {
+        font-size: 24px;
+        font-weight: normal;
+        margin: 5px 0 20px 0;
+        color: #ddd;
+        line-height: 1.2;
+    }
+    header.capa .texto p {
+        font-size: 18px;
+        margin: 7px 0;
+        font-style: italic;
+        color: #ccc;
+    }
+    header.capa .autor {
+        margin-top: 25px;
+        font-size: 16px;
+        color: #eee;
+        padding-bottom: 0;
+        text-align: right;
+    }
+    header.capa .autor .marca {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        color: gold;
+        margin-top: 2px;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+        line-height: 1.2;
+    }
+    /* >>> FIM DOS AJUSTES COM LINE-HEIGHT <<< */
+    /* >>> FIM DOS NOVOS AJUSTES DE ESPAÇAMENTO INTERNO <<< */
+
+/* ---------- Índice Dinâmico - Ajustado ---------- */
+    nav.indice {
+      page-break-before: always;
+      /* padding e outros estilos mantidos */
+    }
+    nav.indice .content-wrapper {
+        padding: 60px 40px;
+    }
+    nav.indice h2 {
+      text-align: center;
+      color: #520058;
+      margin-bottom: 20px;
+      font-size: 24px; /* Aumenta o título do índice */
+    }
+    nav.indice ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    nav.indice li {
+      margin: 15px 0; /* Aumenta o espaçamento entre os itens */
+      font-size: 1.2rem; /* Aumenta a fonte para melhor legibilidade em celular */
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline; /* Alinha o texto na linha de base */
+      border-bottom: 1px dotted #999; /* Adiciona uma linha pontilhada para melhor visual */
+      padding-bottom: 5px;
+    }
+    nav.indice li span.title {
+      flex: 1;
+      font-weight: 500; /* Pode ser ajustado para bold */
+    }
+    nav.indice li span.page {
+        width: 30px;
+        text-align: right;
+        font-size: 1rem; /* Mantém o número da página um pouco menor */
+        color: #555;
+        font-weight: normal;
+        margin-left: 10px; /* Adiciona um espaço entre o título e a página */
+        display: inline-block;
+    }
+    /* ---------- Conteúdo ---------- */
+    main { padding: 0; }
+    section {
+      page-break-before: always;
+      padding: 0;
+    }
+    section .content-wrapper {
+        padding: 40px 15mm;
+    }
+    section > h2 {
+      font-size: 22px;
+      color: #520058;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      flex: 1 1 calc(50% - 20px);
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      page-break-inside: avoid;
+    }
+    .card.full { flex: 1 1 100%; }
+    .card img { max-width: 120px; float: right; margin-left: 20px; }
+    .clear { clear: both; }
+    .fallback { font-style: italic; color: #777; }
+
+    /* ---------- Rodapé Geral (Não é o paginador automático) ---------- */
+    footer {
+      text-align: center;
+      font-size: 10px;
+      color: #777;
+      padding: 20px 0;
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="capa">
+    <div class="texto">
+      <h1>Círculo Interior</h1>
+      <h2>Uma jornada de autoconhecimento para</h2>
+      <h1><strong>João da Silva</strong></h1>
+      <p><em> 01 de Janeiro de 1990 às 12:00 — Rio de Janeiro/RJ</em></p>
+      <div class="autor">
+        Concebido com ❤️ por Alexandro Campos<br>
+        <span class="marca">7Caballa</span>
+      </div>
+    </div>
+    
+  </header>
+
+  <nav class="indice">
+    <div class="content-wrapper">
+        <h2>ÍNDICE</h2>
+        <ul><li>
+              <span class="title">1. Apresentação Geral</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">2. Signo Solar</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">3. Signo Lunar</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">4. Ascendente</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">5. Carta de Nascimento (Tarot)</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">6. Horóscopo Celta</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">7. Horóscopo Chinês</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">8. Caminho de Vida</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">9. Extras - Como Tirar o Melhor Proveito Deste Material</span>
+              <span class="page">2</span> 
+            </li><li>
+              <span class="title">10. Sobre o Autor</span>
+              <span class="page">2</span> 
+            </li>
+        </ul>
+    </div>
+    
+  </nav>
+
+  <main>
+    <section id="apresentacao">
+      <div class="content-wrapper">
+        <h2>1. Apresentação Geral</h2>
+        <div>Bem-vindo, João da Silva. Este é o seu Círculo Interior...</div>
+      </div>
+    </section>
+
+    <section id="solar">
+      <div class="content-wrapper">
+        <h2>2. ☀️ Signo Solar: Gêmeos</h2>
+        <div class="flex-row">
+          <div class="card">
+            <strong>Planeta Regente:</strong><br>Mercúrio
+          </div>
+          <div class="card">
+            <strong>Força:</strong><br>Comunicação, curiosidade, versatilidade.
+          </div>
+          <div class="card">
+            <strong>Fraqueza:</strong><br>Dispersão, superficialidade, ansiedade.
+          </div>
+          <div class="card full">
+            Gêmeos vive de ideias, trocas e movimento. Sua mente ágil encanta, mas precisa de foco e profundidade para florescer de verdade.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="lunar">
+      <div class="content-wrapper">
+        <h2>3. 🌙 Signo Lunar: Câncer</h2>
+        <div class="card full">
+          Profundamente emotiva e protetora. Lua em Câncer é o lar emocional.
+        </div>
+      </div>
+    </section>
+
+    <section id="ascendente">
+      <div class="content-wrapper">
+        <h2>4. ↗️ Ascendente: Gêmeos</h2>
+        <div class="card full">
+          Expressivo e curioso. Ascendente em Gêmeos traz leveza, fala ágil e inquietação.
+        </div>
+      </div>
+    </section>
+
+    <section id="tarot">
+      <div class="content-wrapper">
+        <h2>5. 🔮 Carta de Nascimento (Tarot): O Hierofante</h2>
+        <div class="card full">
+          <strong>Mote:</strong> "Tradição, sabedoria, propósito."<br>
+          <strong>Estilo:</strong> Conselheiro, professor, guia.<br>
+          <strong>Desafios:</strong> Dogmatismo, inflexibilidade.
+        </div>
+        <div class="card full">
+          Sua missão é ensinar com sabedoria e humildade.
+        </div>
+      </div>
+    </section>
+
+    <section id="celta">
+      <div class="content-wrapper">
+        <h2>6. 🌳 Horóscopo Celta: Espinheiro</h2>
+        <div class="flex-row">
+          
+            <div class="card">
+              <strong>Elemento:</strong><br>Topázio
+            </div>
+          
+            <div class="card">
+              <strong>Animal:</strong><br>Abelha, Coruja
+            </div>
+          
+            <div class="card">
+              <strong>Cor:</strong><br>Roxo
+            </div>
+          
+            <div class="card">
+              <strong>Flor:</strong><br>Trevo
+            </div>
+          
+            <div class="card">
+              <strong>Celestial:</strong><br>Vulcano
+            </div>
+          
+        </div>
+        <div class="card full">
+          Você nasceu sob a árvore sagrada Espinheiro, com a energia do(a) abelha, coruja, a cor roxo, a flor trevo, a pedra topázio e a influência celestial de Vulcano.
+        </div>
+      </div>
+    </section>
+
+    <section id="chines">
+      <div class="content-wrapper">
+        <h2>7. 🐉 Horóscopo Chinês</h2>
+        <div class="flex-row">
+          <div class="card">
+            <strong>Animal:</strong><br>Cão
+          </div>
+          <div class="card">
+            <strong>Elemento:</strong><br>Água
+          </div>
+          <div class="card">
+            <strong>Mantra:</strong><br>"Eu sou leal ao que acredito"
+          </div>
+        </div>
+        <div class="card full">
+          Fiel e justo, o Cão protege o que ama com bravura.
+        </div>
+      </div>
+    </section>
+
+    <section id="vida">
+      <div class="content-wrapper">
+        <h2>8. 🔢 Caminho de Vida: 5</h2>
+        <div class="flex-row">
+          <div class="card">
+            <strong>Forças:</strong><br>Liberdade, adaptabilidade, movimento.
+          </div>
+          <div class="card">
+            <strong>Desafios:</strong><br>Instabilidade, impulsividade, vícios.
+          </div>
+        </div>
+        <div class="card full">
+          Você veio para viver mudanças e inspirar liberdade. Sua missão é aprender com a experiência.
+        </div>
+      </div>
+    </section>
+
+    <section id="extras">
+      <div class="content-wrapper">
+        <h2>9. 📚 Extras - Como Tirar o Melhor Proveito Deste Material</h2>
+        <div class="card full">
+          <p>
+            Este espaço será preenchido com dicas sobre como tirar o melhor proveito do seu Círculo Interior.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre_o_autor">
+      <div class="content-wrapper">
+        <h2>10. ✍️ Sobre o Autor</h2>
+        <div class="card full">
+          <p>
+            Informações sobre o autor, Alexandro Campos.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Concebido com ❤️ por Alexandro Campos | 7caballa<br>
+    © 2025 – Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>

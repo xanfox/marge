@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Círculo Interior - {{ nome }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-dark: #2C0E4E;
+      --primary-light: #5A2888;
+      --accent-gold: #D4AF37;
+      --bg-cosmic: url('img/texturas/nebulosa.png');
+    }
+    @page { size: A4; margin: 10mm; }
+    body {
+      margin:0; padding:0;
+      font-family:'Roboto',sans-serif;
+      background: var(--bg-cosmic) center/cover no-repeat;
+      color:#222;
+    }
+    .wrapper { max-width:190mm; margin:0 auto; padding:0 8mm; background:rgba(255,255,255,0.9); }
+
+    /* Hero Section */
+    .hero {
+      text-align:center; padding:60px 20px; background:linear-gradient(150deg, var(--primary-dark) 0%, var(--primary-light) 100%); color:#fff; position:relative; overflow:hidden; margin-bottom:40px;
+    }
+    .hero h1 { font-family:'Playfair Display',serif; font-weight:900; font-size:3.5rem; margin-bottom:12px; text-shadow:0 2px 6px rgba(0,0,0,0.3); }
+    .hero p { font-weight:300; font-size:1.1rem; margin-bottom:20px; }
+    .hero .btn { display:inline-block; padding:12px 28px; font-size:1rem; font-weight:500; color:#fff; background:var(--accent-gold); border-radius:50px; text-decoration:none; }
+
+    /* Grid de Cards */
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:24px; margin-bottom:40px; }
+    .card { background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:20px; display:flex; flex-direction:column; transition:transform .3s; }
+    .card:hover { transform:translateY(-6px); }
+    .card img { width:40px; height:40px; margin:0 auto 12px; }
+    .card h2 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--primary-dark); text-align:center; margin:0 0 8px; }
+    .card .info { font-size:0.95rem; font-weight:500; color:var(--primary-light); text-align:center; margin-bottom:12px; }
+    .card .divider { width:40px; height:3px; background:var(--accent-gold); border-radius:2px; margin:0 auto 12px; }
+    .card .desc { font-size:0.9rem; line-height:1.6; flex-grow:1; text-align:justify; }
+
+    footer { text-align:center; font-size:0.85rem; color:#555; padding:30px 0; border-top:1px solid rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Círculo Interior</h1>
+      <p>Autoconhecimento para <strong>{{ nome }}</strong> — {{ data_nascimento }} | {{ hora_nascimento }} | {{ local_nascimento }}</p>
+      <a href="#conteudo" class="btn">Ver Relatório</a>
+    </section>
+
+    {% set items = [
+      {
+        'icon': 'img/signos/' ~ signo_solar|lower ~ '.svg',
+        'title': '☀️ Signo Solar',
+        'info': '<strong>' ~ signo_solar ~ '</strong> • Planeta: ' ~ planeta_solar ~ ' • Força: ' ~ forca_solar ~ ' • Fraqueza: ' ~ fraqueza_solar,
+        'desc': descricao_solar
+      },
+      {
+        'icon': 'img/lua.svg',
+        'title': '🌙 Signo Lunar',
+        'info': '<strong>' ~ signo_lunar ~ '</strong>',
+        'desc': descricao_lunar
+      },
+      {
+        'icon': 'img/ascendente.svg',
+        'title': '↗️ Ascendente',
+        'info': '<strong>' ~ ascendente ~ '</strong>',
+        'desc': descricao_ascendente
+      },
+      {
+        'icon': 'img/tarot/' ~ arcano_tarot|lower ~ '.svg',
+        'title': '🔮 Carta de Nascimento',
+        'info': '<strong>' ~ arcano_tarot ~ '</strong> — "' ~ mote_tarot ~ '" • Estilo: ' ~ estilo_tarot ~ ' • Desafios: ' ~ fraquezas_tarot,
+        'desc': descricao_tarot
+      },
+      {
+        'icon': 'img/celta.svg',
+        'title': '🌳 Horóscopo Celta',
+        'info': '<strong>' ~ signo_celta ~ '</strong> • Elemento: ' ~ elemento_celta ~ ' • Animal: ' ~ animal_celta ~ ' • Cor: ' ~ cor_celta ~ ' • Flor: ' ~ flor_celta,
+        'desc': descricao_celta
+      },
+      {
+        'icon': 'img/chines.svg',
+        'title': '🐉 Horóscopo Chinês',
+        'info': '<strong>' ~ signo_chines ~ '</strong> • Elemento: ' ~ elemento_chines ~ ' • Mantra: "' ~ mantra_chines ~ '"',
+        'desc': descricao_chines
+      },
+      {
+        'icon': 'img/numerologia.svg',
+        'title': '🔢 Número do Caminho',
+        'info': '<strong>' ~ numero_caminho ~ '</strong> • Forças: ' ~ forcas_numerologia ~ ' • Desafios: ' ~ desafios_numerologia,
+        'desc': descricao_numerologia
+      }
+    ] %}
+
+    <!-- Grid de Cards -->
+    <section id="conteudo" class="grid">
+      {% for it in items %}
+        <div class="card">
+          <img src="{{ it.icon }}" alt="{{ it.title }}">
+          <h2>{{ it.title }}</h2>
+          <div class="info">{{ it.info|safe }}</div>
+          <div class="divider"></div>
+          <div class="desc">{{ it.desc }}</div>
+        </div>
+      {% endfor %}
+    </section>
+
+    <footer>
+      Criado por Alex – Seu Consultor de Tarot © 2025
+    </footer>
+  </div>
+</body>
+</html>

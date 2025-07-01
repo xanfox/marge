@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Círculo Interior - {{ nome }}</title>
+  <style>
+    /* Página A4 com margens */
+    @page { size: A4; margin: 15mm; }
+    html, body { margin:0; padding:0; font-family:'Georgia', serif; color:#333; }
+    .wrapper { max-width: 170mm; margin: 0 auto; padding: 0 10mm; box-sizing: border-box; }
+
+    /* Capa */
+    header.capa {
+      height: 267mm;
+      page-break-after: always;
+      background-color: #3d0075;
+      background-image: url('{{ imagem_textura }}');
+      background-repeat: repeat;
+      background-size: auto;
+      display: flex;
+      align-items: flex-end;
+    }
+    .capa .wrapper {
+      padding-bottom: 40px;
+      text-align: right;
+    }
+    .capa h1 { font-size: 40px; margin:0; color: gold; }
+    .capa h2 { font-size: 18px; margin:10px 0; color: gold; }
+    .capa p, .capa .autor { font-size: 12px; color: #eee; margin:2px 0; }
+
+    /* Índice */
+    nav.indice { page-break-after: always; }
+    nav.indice .wrapper { padding: 20mm 0; }
+    nav.indice h2 { text-align:center; color:#520058; font-size:24px; margin-bottom:12px; }
+    nav.indice ul { list-style:none; padding:0; margin:0; }
+    nav.indice li { display:flex; justify-content:space-between; font-size:14px; margin:2mm 0; }
+
+    /* Seções: uma por página */
+    section { page-break-after: always; }
+    section .wrapper { padding: 10mm 0; }
+    section h2 { font-size:20px; color:#520058; border-bottom:1px solid #ccc; padding-bottom:4px; margin-bottom:8px; }
+
+    /* Cards */
+    .flex-row { display:flex; flex-wrap:wrap; gap:8mm; }
+    .card { background:#f9f9f9; padding:6mm; border-radius:3mm; flex:1 1 calc(50% - 8mm); box-sizing:border-box; }
+    .card.full { flex:1 1 100%; }
+
+    /* Paginação manual */
+    .pagination { text-align:right; font-size:10px; color:#666; margin-top:8mm; }
+
+    /* Rodapé final */
+    footer { page-break-before: always; text-align:center; font-size:12px; color:#777; margin:20mm 0; }
+  </style>
+</head>
+<body>
+  <!-- Capa -->
+  <header class="capa">
+    <div class="wrapper">
+      <h1>Círculo Interior</h1>
+      <h2>Uma jornada de autoconhecimento para</h2>
+      <h1>{{ nome }}</h1>
+      <p>Nascido em {{ data_nascimento }} às {{ hora_nascimento }} — {{ local_nascimento }}</p>
+      <p class="autor">Concebido com ❤️ por Alexandro Campos | 7caballa</p>
+    </div>
+  </header>
+
+  <!-- Índice -->
+  <nav class="indice">
+    <div class="wrapper">
+      <h2>ÍNDICE</h2>
+      <ul>
+        <li>1. Apresentação Geral<span>–</span></li>
+        <li>2. Signo Solar<span>–</span></li>
+        <li>3. Signo Lunar<span>–</span></li>
+        <li>4. Ascendente<span>–</span></li>
+        <li>5. Carta de Nascimento (Tarot)<span>–</span></li>
+        <li>6. Horóscopo Celta<span>–</span></li>
+        <li>7. Horóscopo Chinês<span>–</span></li>
+        <li>8. Caminho de Vida<span>–</span></li>
+      </ul>
+      <p class="pagination">Página 2</p>
+    </div>
+  </nav>
+
+  <!-- Conteúdo -->
+  <main>
+    <section id="apresentacao">
+      <div class="wrapper">
+        <h2>1. Apresentação Geral</h2>
+        <div class="card full">{{ apresentacao_geral | safe }}</div>
+        <p class="pagination">Página 3</p>
+      </div>
+    </section>
+
+    <section id="solar">
+      <div class="wrapper">
+        <h2>2. ☀️ Signo Solar: {{ signo_solar }}</h2>
+        <div class="flex-row">
+          <div class="card"><strong>Planeta Regente:</strong><br>{{ planeta_solar }}</div>
+          <div class="card"><strong>Força:</strong><br>{{ forca_solar }}</div>
+          <div class="card"><strong>Fraqueza:</strong><br>{{ fraqueza_solar }}</div>
+          <div class="card full">{{ descricao_solar }}</div>
+        </div>
+        <p class="pagination">Página 4</p>
+      </div>
+    </section>
+
+    <section id="lunar">
+      <div class="wrapper">
+        <h2>3. 🌙 Signo Lunar: {{ signo_lunar }}</h2>
+        <div class="card full">{{ descricao_lunar }}</div>
+        <p class="pagination">Página 5</p>
+      </div>
+    </section>
+
+    <section id="ascendente">
+      <div class="wrapper">
+        <h2>4. ↗️ Ascendente: {{ ascendente }}</h2>
+        <div class="card full">{{ descricao_ascendente }}</div>
+        <p class="pagination">Página 6</p>
+      </div>
+    </section>
+
+    <section id="tarot">
+      <div class="wrapper">
+        <h2>5. 🔮 Carta de Nascimento (Tarot): {{ arcano_tarot }}</h2>
+        <div class="card full">
+          <strong>Mote:</strong> "{{ mote_tarot }}"<br>
+          <strong>Estilo:</strong> {{ estilo_tarot }}<br>
+          <strong>Desafios:</strong> {{ fraquezas_tarot }}
+        </div>
+        <div class="card full">{{ descricao_tarot }}</div>
+        <p class="pagination">Página 7</p>
+      </div>
+    </section>
+
+    <section id="celta">
+      <div class="wrapper">
+        <h2>6. 🌳 Horóscopo Celta: {{ signo_celta }}</h2>
+        <div class="flex-row">
+          {% for label, val in {'Elemento': elemento_celta, 'Animal': animal_celta, 'Cor': cor_celta, 'Flor': flor_celta}.items() %}
+            <div class="card"><strong>{{ label }}:</strong><br>{{ val }}</div>
+          {% endfor %}
+        </div>
+        <div class="card full">{{ descricao_celta }}</div>
+        <p class="pagination">Página 8</p>
+      </div>
+    </section>
+
+    <section id="chines">
+      <div class="wrapper">
+        <h2>7. 🐉 Horóscopo Chinês</h2>
+        <div class="flex-row">
+          <div class="card"><strong>Animal:</strong><br>{{ signo_chines }}</div>
+          <div class="card"><strong>Elemento:</strong><br>{{ elemento_chines }}</div>
+          <div class="card"><strong>Mantra:</strong><br>"{{ mantra_chines }}"</div>
+        </div>
+        <div class="card full">{{ descricao_chines }}</div>
+        <p class="pagination">Página 9</p>
+      </div>
+    </section>
+
+    <section id="vida">
+      <div class="wrapper">
+        <h2>8. 🔢 Caminho de Vida: {{ numero_caminho }}</h2>
+        <div class="flex-row">
+          <div class="card"><strong>Forças:</strong><br>{{ forcas_numerologia }}</div>
+          <div class="card"><strong>Desafios:</strong><br>{{ desafios_numerologia }}</div>
+        </div>
+        <div class="card full">{{ descricao_numerologia }}</div>
+        <p class="pagination">Página 10</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrapper">
+      Concebido com ❤️ por Alexandro Campos | 7caballa<br>
+      © 2025 – Todos os direitos reservados.
+    </div>
+  </footer>
+</body>
+</html>
